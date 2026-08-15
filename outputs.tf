@@ -4,7 +4,7 @@ output "s3_bucket_acls_id" {
 }
 output "s3_bucket_acls_access_control_policy" {
   description = "Map of access_control_policy values across all s3_bucket_acls, keyed the same as var.s3_bucket_acls"
-  value       = { for k, v in aws_s3_bucket_acl.s3_bucket_acls : k => v.access_control_policy if v.access_control_policy != null && length(v.access_control_policy) > 0 }
+  value       = { for k, v in aws_s3_bucket_acl.s3_bucket_acls : k => one(v.access_control_policy) if v.access_control_policy != null && length(v.access_control_policy) > 0 }
 }
 output "s3_bucket_acls_acl" {
   description = "Map of acl values across all s3_bucket_acls, keyed the same as var.s3_bucket_acls"
